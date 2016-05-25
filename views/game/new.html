@@ -1,0 +1,14 @@
+<h1> Video </h1>
+
+
+<form id='add-video-form' ng-if='videoNeeded'>
+  <input id='video1-input' ng-model='video'/>
+  <button id='add-video' ng-click='addPost(video)' type='submit'>Add video</button>
+</form>
+
+
+<div id='video1'>
+  <youtube-video id='youtube' video-url="posts"></youtube-video>
+</div>
+
+<button id='save-video' ng-click='saveVideo()' type='button'>{{save}}</button>
