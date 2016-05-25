@@ -15,7 +15,9 @@
   </head>
 
   <body ng-app="watchedApp">
-    <a href="#//user/new">Signup</a>
+    <a id="signup" href="#/user/new">Signup</a>
+        <a href="#/user/login">Login</a>
+        <button ng-click='signOut()'>Sign out</button>
       <ng-view></ng-view>
   </body>
 </html>

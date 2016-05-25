@@ -12,6 +12,11 @@ var watchedApp = angular
         templateUrl: "views/user/new.html",
         controller: "UserController",
       }
+    ).when("/user/login",
+      {
+        templateUrl: "views/user/login.html",
+        controller: "UserController",
+      }
     );
   });
 
