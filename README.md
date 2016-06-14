@@ -6,6 +6,8 @@
 
 The point of watched is to make a application that stops you ignoring videos your friends send you and stopping yourself not watching video someone sends you.
 
+The Watched app is going to look at the youtube events sent. Once you add a video for the other player to watch only when they have watched more than 10 seconds of the video, do they see the new video input. 
+
 
 ## Progress
 
@@ -34,60 +36,22 @@ Each link goes to a blog post
 <img src="https://andrewcookson.files.wordpress.com/2016/05/screen-shot-2016-05-26-at-11-58-52.png?w=1000"  width="530" >
 
 
+## Installation
 
-
-
-
-
-
-```
-rails s
-```
-
-Start the Redis/Sidekiq (Worker that ques data storage)
-
-```
-#In a new command window
-bundle exec sidekiq
-#In a new command window
-redis-server /usr/local/etc/redis.conf
-```
-
-
-Set up the listener in a new command tab
-
-```
-$go run listener.go
-```
-
-Set up llirdnam to post data to http://localhost:3000/webhooks/receive in a new command tab
-
-```
-go run llirdnam.go http://localhost:3000/webhooks/receive
-```
+The app is currently a decoupled app with the backend found [here](https://github.com/acookson91/watched-backend). Once complete I'll set up this repo on heroku! 
 
 ## Technologies used
 
-I used ruby on rails with a postgres database. For testing I'm using Rspec with capybara for feature testing. 
+So far I've used AngularJS with protractor and Karma testing for this frontend of this app and Rails API to provide game and user information.
 
 ## Features
 
-Once the dashboard starts to recieve data from the webhook it will show a summary for all emails. If the User wants a breakdown by Email type they can click the links on the summary pages. If more Emails types are added to the database it will add new links to the list. When the email type links are selected the data will be filtered to show that email types events. 
+Users can now put in any format of youtube video and it will display the embedded video on the page. Once the other user has clicked play on the video the youtube event will trigger a new video input field to show after 10 seconds to make sure the user has watched the video.
 
 ## Design approach and Challenges
 
-My approach was to keep the application as simple as possible without repeating myself. I started off with two controllers an emails and summary. The idea was that the emails controller would break down the data further. After starting my first test I noticed that I would be able to filter results all from one controller only adding 2 lines of code to the controller and a method the model.
+My approach was to keep the application as simple as possible to get an MVP up and running as quick as I could. The first issue that I ran into was strict Contextual Escaping. By adding this it allowed angular to load the video with no secuirty issues.
 
-My biggest challlenge was setting up the webhook, as I have little experience using them. With little documentation online I spiked my first attempt with the aim of getting an understanding of how the webhooks work. While I was unsucessful with this I seeded the email database so I could start to create the dashboard. 
+Now videos could be added if the user added there own embedded links, which most would not. I started to use Regex to amend the link but discovered a bower package that changed the link on submisson. 
 
-After I managed to set up the webhook, creating a test for the webhook posting data to the webhook controller was my next challange. 
-
-## Future developments and improvement
-
-I would have like to set up AJAX requests for the data so the page didn't have to refresh for the data to be updated. As mentioned above I wasn't able to create a successful controller test for the webhook creating a Email in the database.
-
-
-
-
-
-
+Next the users had to be added. Using ng-auth I was able to create a secure communcation between both the rails and angularjs app. Half way through this I had to change my computer which mean my Bower componants were slightly different causing a few issues.
